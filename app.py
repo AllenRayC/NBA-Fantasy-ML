@@ -25,6 +25,7 @@ import sqlite3
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
+app.config['JSON_SORT_KEYS'] = False
 
 import Draft
 import Matchup
