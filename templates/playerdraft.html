@@ -51,10 +51,7 @@
 
       bodyRows += '</tr>';
     });
-
-    return '<table id="myTable" cellspacing="0" width="100%" class="' +
-           classes +
-           '"><thead><tr class="tableizer-firstrow">' +
+    return '<table id="myTable" class="table table-striped table-bordered table-sm table-hover" cellspacing="0" width="100%"><thead><tr class="tableizer-firstrow">' +
            headerRow +
            '</tr></thead><tbody>' +
            bodyRows +
@@ -68,7 +65,7 @@
 
 
   d3.json("/json_draft_data/13/10", function(response) {
-    document.getElementById('tableGoesHere').innerHTML = json2table(response, "table table-striped table-bordered table-sm table-hover");      
+    document.getElementById('tableGoesHere').innerHTML = json2table(response, 'table table-striped table-bordered table-sm table-hover');      
   });
 
 
