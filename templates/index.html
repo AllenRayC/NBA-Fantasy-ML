@@ -31,7 +31,7 @@
     </div>
 
 <script>
-  d3.json("https://stats-prod.nba.com/wp-json/statscms/v1/rotowire/player/?team=&limit=10&offset=0", function(response) {
+  d3.json("https://stats-prod.nba.com/wp-json/statscms/v1/rotowire/player/?team=&limit=5&offset=0", function(response) {
 
     var time0 = response.ListItems[0].ListItemPubDate
     var player0 = response.ListItems[0].LastName + ", " + 
