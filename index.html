@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <!-- d3 JavaScript -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="container">
+     <div class="outer">
+      <img src="">
+    </div> 
+  </div>
+  <header id="top-header">
+    <img class="resize" src="../static/images/nba.jpg">
+  </header>
+    <div class="navbar">
+      <a href="/">Home</a>
+      <a href="/heatmap">Map</a>
+      <a href="/playerdraft">Player Draft</a>
+      <a href="/fantasymatch">Fantasy Match</a>
+    </div>
+
+<script>
+  d3.json("https://stats-prod.nba.com/wp-json/statscms/v1/rotowire/player/?team=&limit=10&offset=0", function(response) {
+
+    var time0 = response.ListItems[0].ListItemPubDate
+    var player0 = response.ListItems[0].LastName + ", " + 
+                 response.ListItems[0].FirstName + " " + 
+                 response.ListItems[0].Position          
+    var caption0 = response.ListItems[0].ListItemCaption
+    var description0 = response.ListItems[0].ListItemDescription
+    document.getElementById("time0").innerHTML= time0
+    document.getElementById("player0").innerHTML= player0
+    document.getElementById("caption0").innerHTML= caption0
+    document.getElementById("description0").innerHTML= description0
+
+    var time1 = response.ListItems[1].ListItemPubDate
+    var player1 = response.ListItems[1].LastName + ", " + 
+                 response.ListItems[1].FirstName + " " + 
+                 response.ListItems[1].Position   
+    var caption1 = response.ListItems[1].ListItemCaption
+    var description1 = response.ListItems[1].ListItemDescription
+    document.getElementById("time1").innerHTML= time1
+    document.getElementById("player1").innerHTML= player1
+    document.getElementById("caption1").innerHTML= caption1
+    document.getElementById("description1").innerHTML= description1
+
+    var time2 = response.ListItems[2].ListItemPubDate
+    var player2 = response.ListItems[2].LastName + ", " + 
+                 response.ListItems[2].FirstName + " " + 
+                 response.ListItems[2].Position 
+    var caption2 = response.ListItems[2].ListItemCaption
+    var description2 = response.ListItems[2].ListItemDescription
+    document.getElementById("time2").innerHTML= time2
+    document.getElementById("player2").innerHTML= player2
+    document.getElementById("caption2").innerHTML= caption2
+    document.getElementById("description2").innerHTML= description2
+
+    var time3 = response.ListItems[3].ListItemPubDate
+    var player3 = response.ListItems[3].LastName + ", " + 
+                 response.ListItems[3].FirstName + " " + 
+                 response.ListItems[3].Position 
+    var caption3 = response.ListItems[3].ListItemCaption
+    var description3 = response.ListItems[3].ListItemDescription
+    document.getElementById("time3").innerHTML= time3
+    document.getElementById("player3").innerHTML= player3
+    document.getElementById("caption3").innerHTML= caption3
+    document.getElementById("description3").innerHTML= description3
+
+    var time4 = response.ListItems[4].ListItemPubDate
+    var player4 = response.ListItems[4].LastName + ", " + 
+                 response.ListItems[4].FirstName + " " + 
+                 response.ListItems[4].Position 
+    var caption4 = response.ListItems[4].ListItemCaption
+    var description4 = response.ListItems[4].ListItemDescription
+    document.getElementById("time4").innerHTML= time4
+    document.getElementById("player4").innerHTML= player4
+    document.getElementById("caption4").innerHTML= caption4
+    document.getElementById("description4").innerHTML= description4
+  });
+
+</script>
+
+<script>
+  $(document).ready(function()
+  {
+      $("#calulating-gif").hover(
+          function()
+          {
+              $(this).attr("src", "../images/calculating.gif");
+          },
+          function()
+          {
+              $(this).attr("src", "../images/calculating.jpg");
+          });
+  });
+</script>
+
+<!-- Project Description -->
+<div class="row" id="project-description">
+  <div class="col-md-8">
+    <h2>NBA Fantasy Tool</h2>
+    <img src="public/images/fantasy-basketball.png" alt="Fantasy Basketball">
+    <p>For this project, we aimed to create a tool to help inform a user’s decisions in an NBA fantasy league. This includes assisting users in drafting the best team on day one, as well as in aiding them with weekly matchups.</p>
+
+    <p>There were many parts to this project. We scraped the statistics we needed from the NBA API and other sources, and then aggregated them in an SQLite database. We wrote machine learning functions in Python to predict 1) the top players relevant to NBA fantasy and 2) the outcome of weekly matchups. Finally, we deployed our flask app to Heroku</p>
+
+    <h2>Machine Learning</h2>
+
+
+
+    <img src="public/img/calculating.jpg" alt="Calculating..." id="calulating-gif">
+
+    <h3>Fantasy Draft</h3>
+    <p>The players are ranked by z-score, the statistical measure of how a player compares to the overall sample and its distribution. There are around 500 players in the NBA; however only the top 100-200 would be relevant for NBA Fantasy (for example, a 10 team league with 13 man rosters would have 130 players on a roster).</p>
+    <p>Therefore, a logistic regression model is used to predict the top players of the draft based on previous years’ data. This sample of top players is then used in calculating the z-scores for this year’s draft.</p>  
+    <h3>Head to Head Matchup</h3>
+    <p>A linear regression model is used to predict a player’s stats for the upcoming week of games, based on player’s previous box score and advanced stats, as well as the opposing team stats. For example, a few variables to help predict points would be pace, usage rating and the opposing team’s points allowed.</p>
+     <p>Stats are then aggregated for all players by fantasy team to predict the outcome of a matchup. Our tool would let the user know which categories are likely wins or losses, as well as which categories are still competitive and could be won with a good pick up off the waiver wire.</p>
+
+  </div>
+
+  <div class="col-md-4">
+
+    <!-- Fantasy News -->
+    <div class="row" id="fantasy-news">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h2 style="text-align:center">Latest Fantasy News</h2>
+              <hr>
+              <p id="time0" style="text-align:right"></p>
+              <h4 id="player0" style="font-weight:bold"></h4>
+              <h4 id="caption0"></h4>
+              <p id="description0"></p>
+              <hr>
+              <p id="time1" style="text-align:right"></p>
+              <h4 id="player1" style="font-weight:bold"></h4>
+              <h4 id="caption1"></h4>
+              <p id="description1"></p>
+              <hr>  
+              <p id="time2" style="text-align:right"></p>
+              <h4 id="player2" style="font-weight:bold"></h4>
+              <h4 id="caption2"></h4>
+              <p id="description2"></p>
+              <hr>  
+              <p id="time3" style="text-align:right"></p>
+              <h4 id="player3" style="font-weight:bold"></h4>
+              <h4 id="caption3"></h4>
+              <p id="description3"></p>
+              <hr>  
+              <p id="time4" style="text-align:right"></p>
+              <h4 id="player4" style="font-weight:bold"></h4>
+              <h4 id="caption4"></h4>
+              <p id="description4"></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+  <!--
+  <div class="row">
+    <form action="">
+      <div class="col-md-12">
+        <div class="box3">
+          <p>
+            <h4>
+              For our project we created a one stop shop for any and all fantasy basketball needs. When it comes to
+            fantasy basketball the most important day of the season is the day your league holds the fantasy draft. 
+            People spend hours researching all the players and where they should be drafted, 
+            which players have a chance to outperform their previous season, and which players 
+            might have just had a lucky season and should regress in the season coming. 
+            All valuable information going into draft day. Our group was able to take this 
+            long and time consuming process and turned it into a process that could be done 
+            in a matter of seconds. All the user has to enter is how many teams are in his/her 
+            league and the number of players on each roster and then at the click of a button a 
+            list will be generated of all the players that should be drafted throughout the draft 
+            and the order in which they should be selected. This will create a great advantage for 
+            the user because they will know which player they should be taking in their specific 
+            draft position and it will also make it very easy to identify value all throughout 
+            the draft. If the user is about to make the 20th pick in the draft and the 13th ranked 
+            player from our draft guide is still available it is clear who the choice should be 
+            really simplifies the draft process.
+            <br>
+            <br>
+            <br>
+              Our site is also a major benefit for in season use when it comes to matchup predictions and statistical 
+            projections. In fantasy basketball there are 9 categories of importance and your team needs to win any 5 
+            of them to win the week. With our site your team and the team you are playing can be entered and then our 
+            program will make week long predictions about all the players on your team and the opponents team. This 
+            will be a very useful tool because it allows for the user to see where their team is projected to stand at 
+            weeks end and can make necessary adjustments to the categories that are projected to be close to secure a 
+            win for the week. For example if a user is projected to lose a category like steals by 20 steals and lose 
+            rebounds by one the user can focus their lineup on players that are good rebounders because they have no 
+            chance at winning steals they can put more stock into rebounds, a category that is still there for the taking. 
+            <br>
+            <br>
+              The third function of our website is to see how each NBA team performs against a given position. This is a 
+            useful tool for the user when they are debating which player to start if it is a 
+          </h4>
+          </p>  
+        </div>
+      </div>
+    </form> 
+  </div>
+-->
+
+
+  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>  
+  <script src="../static/js/playerdraft.js"></script>
+  <script src="../static/js/config.js"></script>
+</body>
+
+</html>
