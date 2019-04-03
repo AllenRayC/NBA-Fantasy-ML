@@ -5215,7 +5215,7 @@ $(document).ready(function(){
   });
 });
 
-$(document).ready(function(){
+$(window).load(function(){
   $('#myTable').dataTable({
       'rowCallback': function(row, data, index){
       $(row).find('td:eq(2)').css('background-color', getColor(data[2], -2.21, 2.94));
