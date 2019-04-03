@@ -27,6 +27,57 @@
     }
   </style>
 
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script>
+  /* The function */
+  function json2table(json, classes) {
+    var cols = Object.keys(json[0]);
+    
+    var headerRow = '';
+    var bodyRows = '';
+    
+    classes = classes || '';
+
+    cols.map(function(col) {
+      headerRow += '<th>' + col + '</th>';
+    });
+
+    json.map(function(row) {
+      bodyRows += '<tr>';
+
+      cols.map(function(colName) {
+        bodyRows += '<td>' + row[colName] + '</td>';
+      })
+
+      bodyRows += '</tr>';
+    });
+
+    return '<table class="' +
+           classes +
+           '"><thead><tr>' +
+           headerRow +
+           '</tr></thead><tbody>' +
+           bodyRows +
+           '</tbody></table>';
+  }
+  </script>
+
+  <script>
+
+
+  d3.json("/json_draft_data/13/10", function(response) {
+    console.log("this ran")
+    console.log(response[0])
+    document.getElementById('tableGoesHere').innerHTML = json2table(response, 'table');      
+  });
+
+
+  </script>
+
+
+
+
+  
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
@@ -5120,6 +5171,28 @@
       
       </form> 
     </div>
+
+
+
+
+
+
+<div id="tableGoesHere" class="col-md-6">
+      <h3>New Table Here</h3>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
   <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
