@@ -65,10 +65,9 @@
   <script>
 
 
-  d3.json("/json_draft_data/13/10", function(response) {
-    document.getElementById('tableGoesHere').innerHTML = json2table(response);      
+  d3.json("/json_draft_data/16/10", function(response) {
+    document.getElementById('tableGoesHere').innerHTML = json2table(response);  
   });
-
 
   </script>
 
@@ -154,9 +153,7 @@
         <div class="row">
       <form action="">
         <div id="tableGoesHere" class="col-md-12">
-
-            <table id="myOldTable" class="table table-striped table-bordered table-sm table-hover" cellspacing="0" width="100%">
-              
+            <table id="myTable" class="table table-striped table-bordered table-sm table-hover" cellspacing="0" width="100%">
               <thead>
                 <tr class="tableizer-firstrow"><th></th><th>Player</th><th>zFG</th><th>zFT</th><th>z3P</th><th>zPTS</th><th>zREB</th><th>zAST</th><th>zSTL</th><th>zBLK</th><th>zTOV</th><th>zAVG</th></tr> 
 
@@ -261,7 +258,7 @@
               <td align="right">1.48</td>
               <td align="right">-1.4</td>
               <td align="right">0.71</td>
-              </tr>  
+              </tr>
               <tr>
               <td align="right">8</td>
               <td>Damian Lillard</td>
@@ -5163,7 +5160,6 @@
               <td align="right">-1.01</td>
               </tr>
             </tbody>
-
 
           </table>
 
