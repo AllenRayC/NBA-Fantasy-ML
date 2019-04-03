@@ -131,9 +131,71 @@
 
   </div>
 
+  <!-- Fantasy News -->
   <div class="col-md-4">
+<!--
+    <div class="row" id="player-search">
+      <div class="col-md-12">
+        <h4>Player Search</h4>
+        
+      </div>
+    </div>
 
-    <!-- Fantasy News -->
+    <script>
+      /* When the user clicks on the button,
+      toggle between hiding and showing the dropdown content */
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+
+      function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+          txtValue = a[i].textContent || a[i].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+          } else {
+            a[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+
+    <script>
+      
+      var selector = d3.select("#player-search");
+
+
+      // Use the list of sample names to populate the select options
+      d3.json("/names"), function(response) {
+        response.forEach((player) => {
+          selector
+            .append("option")
+            .text(personId)
+            .property("value", personId);
+        });
+
+
+      };
+      
+    </script>
+
+
+    <div class="dropdown" id="player-search">
+      <button onclick="myFunction()" class="dropbtn">Player Search</button>
+      <div id="myDropdown" class="dropdown-content">
+        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+ 
+      </div>
+    </div>
+    -->
+
+
+
     <div class="row" id="fantasy-news">
       <div class="col-md-12">
         <div class="panel panel-default">
