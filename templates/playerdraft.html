@@ -5083,23 +5083,6 @@
       </form> 
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
   <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
@@ -5120,17 +5103,16 @@ function getColor(value, min, max){
 $(document).ready(function(){
   $('#myTable').dataTable({
       'rowCallback': function(row, data, index){
-      $(row).find('td:eq(2)').css('background-color', getColor(data[2], -2.32, 2.84));
-      $(row).find('td:eq(3)').css('background-color', getColor(data[3], -3.9, 2.74));
-      $(row).find('td:eq(4)').css('background-color', getColor(data[4], -1.38, 2.98));
-      $(row).find('td:eq(5)').css('background-color', getColor(data[5], -2.4, 2.76));
-      $(row).find('td:eq(6)').css('background-color', getColor(data[6], -2.11, 3.77));
-      $(row).find('td:eq(7)').css('background-color', getColor(data[7], -1.5, 3.33));
-      $(row).find('td:eq(8)').css('background-color', getColor(data[8], -2.32, 3.27));
-      $(row).find('td:eq(9)').css('background-color', getColor(data[9], -1.4, 3.9));
-      $(row).find('td:eq(10)').css('background-color', getColor(data[10], -3.57, 2.03));
-      $(row).find('td:eq(11)').css('background-color', getColor(data[11], -1.08, 1.18));
-
+      $(row).find('td:eq(2)').css('background-color', getColor(data[2], -2.21, 2.94));
+      $(row).find('td:eq(3)').css('background-color', getColor(data[3], -4.07, 2.84));
+      $(row).find('td:eq(4)').css('background-color', getColor(data[4], -1.53, 2.99));
+      $(row).find('td:eq(5)').css('background-color', getColor(data[5], -2.6, 2.94));
+      $(row).find('td:eq(6)').css('background-color', getColor(data[6], -1.91, 3.8));
+      $(row).find('td:eq(7)').css('background-color', getColor(data[7], -1.55, 3.34));
+      $(row).find('td:eq(8)').css('background-color', getColor(data[8], -2.32, 3.26));
+      $(row).find('td:eq(9)').css('background-color', getColor(data[9], -1.3, 3.86));
+      $(row).find('td:eq(10)').css('background-color', getColor(data[10], -3.79, 2.07));
+      $(row).find('td:eq(11)').css('background-color', getColor(data[11], -1.01, 1.2));
       }         
   });
 });
