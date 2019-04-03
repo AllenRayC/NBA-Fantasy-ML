@@ -151,6 +151,15 @@
     </div>
     <br>
 
+      <div class="row">
+      <form action="">
+        <div id="tableGoesHere1" class="col-md-12">
+        </div>
+      </form> 
+    </div>
+
+
+
         <div class="row">
       <form action="">
         <div id="tableGoesHere" class="col-md-12">
@@ -5169,18 +5178,6 @@
       </form> 
     </div>
 
-
-
-
-
-
-   <div class="row">
-      <form action="">
-        <div id="tableGoesHere1" class="col-md-12">
-        </div>
-      </form> 
-    </div>
-
   <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
   <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
@@ -5231,6 +5228,13 @@ $(window).load(function(){
       }         
   });
 });
+
+var elem = document.getElementById('myOldTable');
+
+if (typeof elem != 'undefined')
+{
+  elem.parentNode.removeChild(elem);
+}
 
 </script>
 
