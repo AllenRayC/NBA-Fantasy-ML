@@ -52,7 +52,7 @@ Fantasy_Draft = Base.classes.NBA_Fantasy_Draft
 Season1617 = Base.classes.season_2016_2017
 Season1718 = Base.classes.season_2017_2018
 Playerstats = Base.classes.playerstats_boxscore
-
+Playerinfo = Base.classes.Players_Info
 
 
 @app.route("/")
@@ -103,8 +103,8 @@ def draft_roster(roster_size, num_teams):
     draft_info2 = Draft.log_regression(2016,roster_size,num_teams,10)
     #draftData = json.loads(draft_info.to_json(orient='records'))
     #draftData = draft_info.to_json(orient='table')
-    #draft_info2 = draft_info2[['Rank','Player', 'zFT', 'z3P', 'zPTS', 'zREB', 'zAST', 'zSTL', 'zBLK', 'zTOV', 'zAVG']]
-    #draft_info2 = draft_info2.round({'zFT': 2, 'z3P': 2, 'zPTS': 2, 'zREB': 2, 'zAST': 2, 'zSTL': 2, 'zBLK': 2, 'zTOV': 2, 'zAVG': 2})
+    draft_info2 = draft_info2[['Rank','Player', 'zFT', 'z3P', 'zPTS', 'zREB', 'zAST', 'zSTL', 'zBLK', 'zTOV', 'zAVG']]
+    draft_info2 = draft_info2.round({'zFT': 2, 'z3P': 2, 'zPTS': 2, 'zREB': 2, 'zAST': 2, 'zSTL': 2, 'zBLK': 2, 'zTOV': 2, 'zAVG': 2})
     temp_data = draft_info2.to_dict('records')
     draftData2 = [dict(i) for i in temp_data]
     return jsonify(draftData2)
@@ -234,48 +234,21 @@ def boxscore_data():
             
     return jsonify(geojson_boxscore)
 
+@app.route("/names")
+def names():
+    
+    # Use Pandas to perform the sql query
+    results = db.session.query(Playerinfo).statement
 
-#testing out the NBA graphs
-@app.route("/pointsposition_test")
-def pointsposition_test():
-    
-    
-    return render_template("pointsposition_test.html")
-
-
-@app.route("/NBA-graph/center")
-def graph_center():
-    
-    
-    return render_template("/NBA-graph/center.html")
+    df = pd.read_sql_query(results, db.session.bind)
 
 
-@app.route("/NBA-graph/powerforward")
-def graph_powerforward():
+    temp_data = df[["personId", "lastName", "firstName"]].to_dict('records')
+    playerData = [dict(i) for i in temp_data]
     
-    
-    return render_template("/NBA-graph/powerforward.html")
+   
+    return jsonify(playerData)
 
-
-@app.route("/NBA-graph/smallforward")
-def graph_smallforward():
-    
-    
-    return render_template("/NBA-graph/smallforward.html")
-
-
-@app.route("/NBA-graph/shootingguard")
-def graph_shootingguard():
-    
-    
-    return render_template("/NBA-graph/shootingguard.html")
-
-
-@app.route("/NBA-graph/pointguard")
-def graph_pointguard():
-    
-    
-    return render_template("/NBA-graph/pointguard.html")
 
 if __name__ == "__main__":
    app.run(debug=True)
