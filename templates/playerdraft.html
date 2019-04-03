@@ -5194,7 +5194,7 @@ function getColor(value, min, max){
     //var hue=((max-(value-min))*120).toString(10);
     return ["hsl(",hue,",100%,50%)"].join("");
 }
-
+/*
 $(document).ready(function(){
   $('#myOldTable').dataTable({
       'rowCallback': function(row, data, index){
@@ -5211,7 +5211,8 @@ $(document).ready(function(){
       }         
   });
 });
-
+*/
+$(document).ready(function() {
 $(window).load(function(){
   $('#myTable').dataTable({
       'rowCallback': function(row, data, index){
@@ -5228,7 +5229,7 @@ $(window).load(function(){
       }         
   });
 });
-
+});
 var elem = document.getElementById('myOldTable');
 
 if (typeof elem != 'undefined')
