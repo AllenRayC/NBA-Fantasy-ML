@@ -61,13 +61,33 @@
 
   }
 
+  function json2data(json) {
+    var cols = Object.keys(json[0]);
+    
+    var bodyRows = '';
+
+    json.map(function(row) {
+
+      bodyRows += '<tr>';
+
+      cols.map(function(colName) {
+        bodyRows += '<td align="right">' + row[colName] + '</td>';
+      })
+
+      bodyRows += '</tr>';
+    });
+
+    return bodyRows;
+
+  }
+
   </script>
 
   <script>
 
 
   d3.json("/json_draft_data/13/10", function(response) {
-    document.getElementById('tableGoesHere1').innerHTML = json2table(response);  
+    document.getElementById('tableGoesHere').innerHTML = json2table(response);  
   });
 
   </script>
@@ -152,16 +172,55 @@
         var numteams = $('#teamnum').val()
         var rostersize = $('#playernum').val()
         console.log(`/json_draft_data/${numteams}/${rostersize}`)
+
+
         $.getJSON(`/json_draft_data/${numteams}/${rostersize}`, function(response) {
-          document.getElementById('tableGoesHere1').innerHTML = json2table(response);  
+          console.log("json called")
+          document.getElementById('tableGoesHere').innerHTML = json2table(response);  
         });  
 
-     }); 
+        
+        setTimeout(function(){
+          datatable.destroy();
+      
+          //$(window).on('load', function(){
+
+          datatable = $('#myTable').DataTable({
+            lengthMenu: [[25, 50, 75, -1], [25, 50, 75, "All"]],
+            pageLength: 25,
+            dom: 'Blfrtip',
+            buttons: [
+                  'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            select: {
+                  style: 'multi',
+                  blurable: true
+            },
+            'rowCallback': function(row, data, index){
+            $(row).find('td:eq(2)').css('background-color', getColor(data[2], -2.21, 2.94));
+            $(row).find('td:eq(3)').css('background-color', getColor(data[3], -4.07, 2.84));
+            $(row).find('td:eq(4)').css('background-color', getColor(data[4], -1.53, 2.99));
+            $(row).find('td:eq(5)').css('background-color', getColor(data[5], -2.6, 2.94));
+            $(row).find('td:eq(6)').css('background-color', getColor(data[6], -1.91, 3.8));
+            $(row).find('td:eq(7)').css('background-color', getColor(data[7], -1.55, 3.34));
+            $(row).find('td:eq(8)').css('background-color', getColor(data[8], -2.32, 3.26));
+            $(row).find('td:eq(9)').css('background-color', getColor(data[9], -1.3, 3.86));
+            $(row).find('td:eq(10)').css('background-color', getColor(data[10], -3.79, 2.07));
+            $(row).find('td:eq(11)').css('background-color', getColor(data[11], -1.01, 1.2));
+            }         
+          });
+            console.log("datatable")
+        }, 500); 
+
+
+      
+//});
+      }); 
     </script>
 
       <div class="row">
       <form action="">
-        <div id="tableGoesHere1" class="col-md-12">
+        <div id="tableGoesHere" class="col-md-12">
         </div>
       </form> 
     </div>
@@ -197,7 +256,7 @@ function getColor(value, min, max){
 }
 
 $(window).on('load', function(){
-  $('#myTable').dataTable({
+  datatable = $('#myTable').DataTable({
       lengthMenu: [[25, 50, 75, -1], [25, 50, 75, "All"]],
       pageLength: 25,
       dom: 'Blfrtip',
@@ -222,6 +281,7 @@ $(window).on('load', function(){
       }         
   });
 });
+
 
 </script>
 
