@@ -3,7 +3,6 @@
 #1.) calculate the zscore for 9 categories
 #2.) primary function - log_regression
 
-
 # dependencies
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -13,15 +12,10 @@ import sqlite3
 from sqlite3 import Error
 
 #setup the database connection
-#def enginetest():
-    #engine = create_engine("sqlite:///db/NBA_Data.sqlite")
-    
 def conntest():
     engine = create_engine("sqlite:///db/NBA_Data.sqlite")
     conn = engine.connect()
     return conn
-
-#engine.table_names()
 
 # this function calculates the z-scores for 9-Categories and ranks players based on average z-score
 # the input df has a column TOP if top players have been predicted by the logistic model
@@ -97,14 +91,8 @@ def log_regression(season, roster_size = 13, num_teams = 10, min_games = 10):
     print(f"First 10 Predictions:   {predictions[:10]}")
     print(f"First 10 Actual labels: {y_test[:10].tolist()}")
     
-    #next_season = f"{season+1}_{season+2}"
-
-    #file_to_load = f"Resources/{next_season}.csv"
-    #next_df = pd.read_csv(file_to_load)
-    
     next_df = pd.read_sql(f'select * from season_{season+1}_{season+2}', conn)
     
-    #next_df = zscore(next_df, sample_size)
     X = next_df[['fgm', 'fga', 'fgp', 'tpm', 'tpa', 'tpp', 'ftm', 'fta', 'ftp', 'offReb', \
             'defReb', 'totReb', 'assists', 'steals', 'blocks', 'turnovers', 'points']]
     predictions = classifier.predict(X)
@@ -112,6 +100,5 @@ def log_regression(season, roster_size = 13, num_teams = 10, min_games = 10):
     next_df["TOP"] = predictions
     print(f"z-score calculated with {next_df['TOP'].sum()} top players")
     next_df = zscore(next_df, sample_size)
-    #next_df.index.name = "Rank"
     
     return next_df;

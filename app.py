@@ -80,12 +80,6 @@ def fantasymatch():
     
     return render_template("fantasymatch.html")
 
-
-@app.route("/pointsposition")
-def pointsposition():
-    
-    return render_template("pointsposition.html")
-
 @app.route("/draft_data")
 def draft_data():
     

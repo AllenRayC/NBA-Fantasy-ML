@@ -18,9 +18,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
 #setup the database connection
-#def enginetest():
-    #engine = create_engine("sqlite:///db/NBA_Data.sqlite")
-    
 def conntest():
     engine = create_engine("sqlite:///db/NBA_Data.sqlite")
     conn = engine.connect()
@@ -28,7 +25,6 @@ def conntest():
 
 def week_games(teamId = 1610612740, personId = 201950, startday = 20190204):
     #Bring in data from internet as object then convert ot Json and count number of games
-    # REQUEST
     schedule_response_obj=requests.get("http://data.nba.net/prod/v1/2018/schedule.json")
     schedule_response=schedule_response_obj.json()
 
@@ -118,8 +114,6 @@ def linear_reg(personId = 201950, startday = 20190204):
     this_season = this_season.append([this_season]*(game_count-1),ignore_index=True)
     next_week = pd.concat([next_week, this_season], axis = 1)
     
-    #next_week = train[:len(week_games(train["teamId"][0], personId, startday))]
-    
     for x in range(11):
         X = train[training[x]]
         y = train[categories[x]].values.reshape(-1, 1)
@@ -135,9 +129,6 @@ def linear_reg(personId = 201950, startday = 20190204):
         training_score = model.score(X_train, y_train)
         testing_score = model.score(X_test, y_test)
 
-        #print(f"Training Score: {training_score}")
-        #print(f"Testing Score: {testing_score}")
-
         test = next_week[training[x]]
         prediction = model.predict(test)
         next_week[categories[x]] = prediction
@@ -149,13 +140,10 @@ def linear_reg(personId = 201950, startday = 20190204):
 
     return weekly_prediction.to_frame();
 
-
-# def fantasy_matchup(team1_id = 7110302001, team2_id = 7110302002, startday = 20190204):
 def get_ids(name):
     conn = conntest()
     get_team_id = pd.read_sql(f"select DISTINCT Fantasy_Team_ID from fantasy_league where Fantasy_Team_Name='{name}'", conn)
     return get_team_id
-
 
 def fantasy_matchup(team1_id = 7110302001, team2_id = 7110302001, startday = 20190204):
     
