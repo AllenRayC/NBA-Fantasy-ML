@@ -1,6 +1,8 @@
 // Javascript file for the Fantasy matchup page - fantasymatch.html
 function getSelectedValue(id) {
-  var selectedValue = document.getElementById(id).value; 
+  //var selectedValue = document.getElementById(id).value; 
+  var selectedValue = $(`#${id}`).find(":selected").text();
+  console.log("js:" + selectedValue)
   // console.log(this.target);
   d3.json(`/getids/${selectedValue}`).then(function (response) {
     // console.log(response);
